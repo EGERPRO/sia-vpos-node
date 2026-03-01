@@ -1,0 +1,4 @@
+node_modules/
+dist/
+*.pdf
+tests/try-algorithms.test.ts
