@@ -269,6 +269,7 @@ export class VposClient {
     const exponent = data.linkExponent || DEFAULT_EXPONENT;
 
     // MAC fields per spec 4.2.23 — order is critical!
+    // NOTE: LINKEXPONENT is NOT in the MAC per spec (page 227-228)
     const macFields: [string, string | number | undefined][] = [
       ['OPERATION', 'CREATELINK'],
       ['TIMESTAMP', timestamp],
@@ -279,7 +280,6 @@ export class VposClient {
       ['LINKEXPIRATIONDATE', data.linkExpirationDate],
       ['LINKAMOUNT', data.linkAmount],
       ['LINKCURRENCY', currency],
-      ['LINKEXPONENT', exponent],
       ['LINKORDERID', data.linkOrderId],
       ['LINKURLDONE', data.linkUrlDone],
       ['LINKURLMS', data.linkUrlMs],
@@ -309,7 +309,7 @@ export class VposClient {
     const dataXml = [
       '<CreateLinkRequest>',
       buildHeaderXml(this.config.shopId, this.config.operatorId, reqRefNum),
-      el('Sendmail', data.sendMail),
+      el('SendMail', data.sendMail),
       el('LinkExpirationDate', data.linkExpirationDate),
       el('LinkAmount', data.linkAmount),
       el('LinkCurrency', currency),
